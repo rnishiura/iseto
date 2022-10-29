@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
 import ContentWrapper from "./components/ContentWrapper";
@@ -11,6 +11,17 @@ import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
+  const [info, setInfo] = useState({});
+
+  const handleSetInfo = (vals) => {
+    setInfo(vals);
+    console.log(info);
+  };
+
+  const getInfo = () => {
+    return info;
+  };
+
   return (
     <AuthProvider>
       <Wrapper>
@@ -28,8 +39,14 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/reception" element={<Reception />} />
               <Route path="/passcode" element={<Passcode />} />
-              <Route path="/change" element={<Change />} />
-              <Route path="/confirmation" element={<Confirmation />} />
+              <Route
+                path="/change"
+                element={<Change handleSubmit={(e) => handleSetInfo(e)} />}
+              />
+              <Route
+                path="/confirmation"
+                element={<Confirmation getInfo={() => getInfo()} />}
+              />
             </Routes>
           </ContentWrapper>
         </BrowserRouter>

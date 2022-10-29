@@ -63,7 +63,7 @@ const Passcode = () => {
               <div>
                 <label>暗証番号</label>
               </div>
-              <Input type="password" name="number" />
+              <Input type="password" name="number" style={{ height: "30px" }} />
             </li>
           </StyledUL>
           <Link to="/change">

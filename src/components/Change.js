@@ -1,4 +1,4 @@
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import FormButton from "./FormButton";
 import NextButton from "./NextButton";
@@ -23,8 +23,20 @@ const StyledUL = styled.ul`
   }
 `;
 
-const Change = () => {
+const Change = (props) => {
   const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const vals = {};
+    for (let a of event.target.elements) {
+      vals[a.name] = a.value;
+    }
+    // console.log(vals);
+    props.handleSubmit(vals);
+    navigate("/confirmation");
+  };
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -33,7 +45,7 @@ const Change = () => {
       <>
         <p>変更内容を入力ください。</p>
         <hr />
-        <form>
+        <form onSubmit={handleSubmit}>
           <StyledUL>
             <li>
               <label>郵便番号（ハイフン不要）</label>
@@ -91,7 +103,7 @@ const Change = () => {
                 >
                   <Input
                     type="text"
-                    name="phone-address"
+                    name="phone_address"
                     size="15"
                     style={{ height: "35px", width: "100%" }}
                   />
@@ -119,9 +131,9 @@ const Change = () => {
           <p>
             裏 <FormButton>ファイルを選択</FormButton>
           </p>
-          <Link to="/confirmation">
-            <NextButton>内容確認</NextButton>
-          </Link>
+          {/* <Link to="/confirmation"> */}
+          <NextButton>内容確認</NextButton>
+          {/* </Link> */}
         </form>
       </>
     );
