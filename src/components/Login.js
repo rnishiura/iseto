@@ -13,7 +13,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <>
       <h1>ログイン</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -31,7 +31,7 @@ const Login = () => {
           ユーザ登録は<Link to={"/signup"}>こちら</Link>から
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

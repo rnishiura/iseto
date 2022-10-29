@@ -1,7 +1,27 @@
-import { Navigate, Link, Form } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import Button from "./Button";
-import styled from "styled-components";
+import FormButton from "./FormButton";
+import NextButton from "./NextButton";
+import styled, { css } from "styled-components";
+import Input from "./Input";
+
+const StyledUL = styled.ul`
+  padding: 0px 20px 0px 50px;
+
+  li {
+    width: 100%;
+    /* height: 40px; */
+    text-align: left;
+  }
+  li label {
+    display: block;
+    /* float: left; */
+  }
+  li:last-child::marker {
+    content: "※  ";
+    font-size: 1.2em;
+  }
+`;
 
 const Change = () => {
   const { user } = useAuthContext();
@@ -10,71 +30,102 @@ const Change = () => {
     return <Navigate to="/login" />;
   } else {
     return (
-      <div>
+      <>
         <p>変更内容を入力ください。</p>
         <hr />
         <form>
-          <ul>
+          <StyledUL>
             <li>
               <label>郵便番号（ハイフン不要）</label>
-              <input type="text" name="post" />
+              <Input type="text" name="post" style={{ height: "25px" }} />
             </li>
             <li>
               <label>住所</label>
-              <input type="text" name="address" />
+              <Input
+                type="text"
+                name="address"
+                style={{ height: "65px", width: "100%" }}
+              />
             </li>
             <li>
               <label>携帯番号</label>
-              <input type="text" name="phone" />
+              <Input
+                type="text"
+                name="phone"
+                style={{ height: "35px", width: "100%" }}
+              />
             </li>
             <li>
               <label>ご自宅電話番号</label>
-              <input type="text" name="number" />
+              <Input
+                type="text"
+                name="number"
+                style={{ height: "35px", width: "100%" }}
+              />
             </li>
             <li>
-              <p>携帯アドレス</p>
-              <FormButton>クリックして空メールを送信</FormButton>
-              <p>
-                <label>受信メールに記載の番号を入力ください。</label>
-                <input type="text" name="phone-address" />
-              </p>
+              <label>携帯アドレス</label>
+              <FormButton style={{ width: "100%" }}>
+                クリックして空メールを送信
+              </FormButton>
+              <div style={{ margin: "20px 0 15px" }}>
+                <label
+                  style={{
+                    display: "inline-block",
+                    float: "left",
+                    width: "140px",
+                  }}
+                >
+                  受信メールに
+                  <br />
+                  記載の番号を
+                  <br />
+                  入力ください。
+                </label>
+                <div
+                  style={{
+                    display: "table-cell",
+                    "vertical-align": "middle",
+                    height: "90px",
+                  }}
+                >
+                  <Input
+                    type="text"
+                    name="phone-address"
+                    size="15"
+                    style={{ height: "35px", width: "100%" }}
+                  />
+                </div>
+              </div>
             </li>
             <li>
               <label>本人確認書類WEB提出</label>
-              <p>
-                <a href="https://google.com" target="_blank" rel="noreferrer">
-                  ※ 当行が認めている本人確認書類はコチラをご確認ください。
-                </a>
-              </p>
-              <p>
-                表 <FormButton>ファイルを選択</FormButton>
-              </p>
-              <p>
-                裏 <FormButton>ファイルを選択</FormButton>
-              </p>
             </li>
-          </ul>
+            <li>
+              <a
+                href="https://www.jp-bank.japanpost.jp/tetuzuki/honnin/tzk_hn_index.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                当行が認めている本人確認
+                <br />
+                資料はコチラをご確認ください。
+              </a>
+            </li>
+          </StyledUL>
+          <p>
+            表 <FormButton>ファイルを選択</FormButton>
+          </p>
+          <p>
+            裏 <FormButton>ファイルを選択</FormButton>
+          </p>
           <Link to="/confirmation">
-            <Button>内容確認</Button>
+            <NextButton>内容確認</NextButton>
           </Link>
         </form>
-      </div>
+      </>
     );
   }
 };
-
-const FormButton = styled.button`
-  margin: 0px;
-  padding: 0px;
-  width: 170px;
-  height: 60px;
-  color: #26c;
-  font-size: 15px;
-  background: #2df;
-  border: 1px #26c solid;
-  border-radius: 100px;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  text-align: center;
-`;
 
 export default Change;

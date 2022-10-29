@@ -1,6 +1,28 @@
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import Button from "./Button";
+import NextButton from "./NextButton";
+import styled from "styled-components";
+
+const StyledUL = styled.ul`
+  padding: 0px 30px 0px 50px;
+
+  li {
+    width: 100%;
+    /* height: 40px; */
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  li label {
+    display: block;
+    /* float: left; */
+  }
+  li p {
+    display: block;
+    margin-top: 0px;
+    margin-left: 80px;
+    /* float: left; */
+  }
+`;
 
 const Confirmation = () => {
   const { user } = useAuthContext();
@@ -24,7 +46,7 @@ const Confirmation = () => {
     return <Navigate to="/login" />;
   } else {
     return (
-      <div>
+      <>
         <p>
           内容にお間違いなければ、
           <br />
@@ -32,7 +54,7 @@ const Confirmation = () => {
         </p>
         <hr />
         <form onSubmit={handleSubmit}>
-          <ul>
+          <StyledUL>
             <li>
               <label>郵便番号</label>
               <p>{credidentials.postal_number}</p>
@@ -57,10 +79,10 @@ const Confirmation = () => {
               <label>本人確認資料</label>
               <p>{credidentials.kyc}</p>
             </li>
-          </ul>
-          <Button>登録</Button>
+          </StyledUL>
+          <NextButton>登録</NextButton>
         </form>
-      </div>
+      </>
     );
   }
 };

@@ -1,6 +1,25 @@
 import { Navigate, Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import Button from "./Button";
+import styled from "styled-components";
+import NextButton from "./NextButton";
+import Input from "./Input";
+
+const StyledUL = styled.ul`
+  padding: 0px 30px 0px 50px;
+
+  li {
+    width: 100%;
+    height: 40px;
+    text-align: left;
+  }
+  li div {
+    text-align: left;
+  }
+  li div:first-child {
+    width: 140px;
+    float: left;
+  }
+`;
 
 const Passcode = () => {
   const { user } = useAuthContext();
@@ -9,7 +28,7 @@ const Passcode = () => {
     return <Navigate to="/login" />;
   } else {
     return (
-      <div>
+      <>
         <p>
           現状の登録内容です。
           <br />
@@ -19,22 +38,39 @@ const Passcode = () => {
         </p>
         <hr />
         <form>
-          <ul>
-            <li>お名前　三菱　太郎</li>
-            <li>生年月日　1919年8月15日</li>
-            <li>店番　001</li>
-            <li>店名　本店</li>
-            <li>口座番号　1234567</li>
+          <StyledUL>
             <li>
-              <label>暗証番号</label>
-              <input type="text" name="number" />
+              <div>お名前</div>
+              <div>三菱　太郎</div>
             </li>
-          </ul>
+            <li>
+              <div>生年月日</div>
+              <div>1919年8月15日</div>
+            </li>
+            <li>
+              <div>店番</div>
+              <div>001</div>
+            </li>
+            <li>
+              <div>店名</div>
+              <div>本店</div>
+            </li>
+            <li>
+              <div>口座番号</div>
+              <div>1234567</div>
+            </li>
+            <li>
+              <div>
+                <label>暗証番号</label>
+              </div>
+              <Input type="password" name="number" />
+            </li>
+          </StyledUL>
           <Link to="/change">
-            <Button>次へ</Button>
+            <NextButton>次へ</NextButton>
           </Link>
         </form>
-      </div>
+      </>
     );
   }
 };
